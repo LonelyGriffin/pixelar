@@ -21,6 +21,7 @@ interface IProps {
     relevantDroppableTypes: ReadonlyArray<DroppableType>;
     onDrop?: (draggingState: IDraggingState) => void;
     onDrag?: (draggingState: IDraggingState) => void;
+    lock?: boolean;
 }
 
 interface IState {
@@ -42,7 +43,7 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
     }
 
     public componentWillUnmount() {
-        this.props.resetDraggableGetter(this.entityGetter);
+        this.props.resetDraggableGetter();
     }
 
     private entityGetter = (): IDraggableEntity => ({
@@ -52,6 +53,10 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
     });
 
     private handleStartDrag = (mouseEvent: SynteticMouseEvent<Element>) => {
+        if (!this.props.lock) {
+            return;
+        }
+
         mouseEvent.preventDefault();
 
         const startRectangle = RectangleByBoundary(mouseEvent.currentTarget.getBoundingClientRect());
@@ -69,7 +74,7 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
         const handleDragEnd = () => {
             document.removeEventListener("mousemove", handleDrag);
             document.removeEventListener("mouseup", handleDragEnd);
-            this.props.resetDraggableGetter(this.entityGetter);
+            this.props.resetDraggableGetter();
 
             this.setState({
                 hasDragging: false,

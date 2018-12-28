@@ -1,0 +1,36 @@
+.Layout {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Layout_Menu {
+    height: 40px;
+    width: 100%;
+}
+
+.Layout_Content {
+    flex: auto 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.Layout_StatusBar {
+    height: 40px;
+    width: 100%;
+}
+
+.Layout_Content_Left {
+    width: 40px;
+}
+
+.Layout_Content_Right {
+    width: 300px;
+}
+
+.Layout_Content_Center {
+    flex: auto 1;
+}
