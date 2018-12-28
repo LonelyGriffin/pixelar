@@ -8,6 +8,7 @@
 .Layout_Menu {
     height: 40px;
     width: 100%;
+    border-bottom: solid #e4e4e4 1px;
 }
 
 .Layout_Content {
@@ -21,16 +22,20 @@
 .Layout_StatusBar {
     height: 40px;
     width: 100%;
+    border-top: solid #e4e4e4 1px;
 }
 
 .Layout_Content_Left {
     width: 40px;
+    border-right: solid #e4e4e4 1px;
 }
 
 .Layout_Content_Right {
     width: 300px;
+    border-left: solid #e4e4e4 1px;
 }
 
 .Layout_Content_Center {
     flex: auto 1;
+    box-shadow: inset 0 0 20px 2px #e4e4e4;
 }
