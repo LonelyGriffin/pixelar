@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {DroppableType} from "./DroppableType";
-import {DraggableType} from "./DraggableType";
-import {DragAndDropConsumer, IDragAndDropContextValue} from "./DragAndDropContext";
+import {DroppableType} from "./droppable_type";
+import {DraggableType} from "./draggable_type";
+import {DragAndDropConsumer, IDragAndDropContextValue} from "./drag_and_drop_context";
 
 interface IDroppingState {
     hasOverlap: boolean;

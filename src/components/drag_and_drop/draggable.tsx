@@ -1,15 +1,14 @@
 import React, {
     Component,
-    MouseEvent as SynteticMouseEvent,
     MouseEventHandler,
     RefObject,
 } from "react";
-import {DraggableType} from "./DraggableType";
-import styles from "./Draggable.module.css";
-import {DroppableType} from "./DroppableType";
-import {DragAndDropConsumer, IDragAndDropContextValue, IDraggableEntity} from "./DragAndDropContext";
-import {IVector, Vector, vectorSub, vectorSum, vectorX, vectorY} from "../../core/Vector";
-import {RectangleByBoundary, rectangleTL} from "../../core/Rectangle";
+import {DraggableType} from "./draggable_type";
+import styles from "./draggable.module.css";
+import {DroppableType} from "./droppable_type";
+import {DragAndDropConsumer, IDragAndDropContextValue, IDraggableEntity} from "./drag_and_drop_context";
+import {IVector, Vector, vectorSub, vectorSum, vectorX, vectorY} from "../../core/vector";
+import {RectangleByBoundary, rectangleTL} from "../../core/rectangle";
 
 export interface IDraggingState {
     hasDragging: boolean;
@@ -52,7 +51,7 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
         relevantDroppableTypes: this.props.relevantDroppableTypes,
     });
 
-    private handleStartDrag = (mouseEvent: SynteticMouseEvent<Element>) => {
+    private handleStartDrag = (mouseEvent: React.MouseEvent<Element>) => {
         if (!this.props.lock) {
             return;
         }

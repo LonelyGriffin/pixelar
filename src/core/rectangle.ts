@@ -1,4 +1,4 @@
-import {IVector, Vector} from "./Vector";
+import {IVector, Vector} from "./vector";
 
 export type IRectangle = [IVector, IVector];
 

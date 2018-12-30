@@ -1,7 +1,7 @@
 import * as React from "react";
-import {DroppableType} from "./DroppableType";
+import {DroppableType} from "./droppable_type";
 import {Component, RefObject} from "react";
-import {DraggableType} from "./DraggableType";
+import {DraggableType} from "./draggable_type";
 
 export interface IDroppableEntity {
     ref: RefObject<HTMLElement>;
@@ -31,7 +31,7 @@ export type IDragAndDropContextValue = {
     contextDropHandler(): void;
 };
 
-const DragAndDropContext = React.createContext<IDragAndDropContextValue>({
+const Drag_and_drop_context = React.createContext<IDragAndDropContextValue>({
     droppableGetters: [],
     registerDroppableGetter: () => {},
     unregisterDroppableGetter: () => {},
@@ -41,8 +41,8 @@ const DragAndDropContext = React.createContext<IDragAndDropContextValue>({
     contextDropHandler: () => {},
 });
 
-export const DragAndDropConsumer = DragAndDropContext.Consumer;
-const Provider = DragAndDropContext.Provider;
+export const DragAndDropConsumer = Drag_and_drop_context.Consumer;
+const Provider = Drag_and_drop_context.Provider;
 
 export class DragAndDropProvider extends Component<{}, IDragAndDropContextValue> {
     constructor(props: {}) {
