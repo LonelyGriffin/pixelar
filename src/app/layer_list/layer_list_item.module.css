@@ -1,0 +1,8 @@
+.Root {
+    padding: 5px;
+    border: solid 1px #e4e4e4;
+}
+
+.Active {
+    border-color: #000;
+}

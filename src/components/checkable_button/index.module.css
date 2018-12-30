@@ -1,0 +1,15 @@
+.Root {
+    padding: 5px;
+    border: solid 1px #e4e4e4;
+    cursor: pointer;
+}
+
+.Checked {
+    border-color: #999999;
+}
+
+.Center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
