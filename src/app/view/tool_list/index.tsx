@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import style from "./index.module.css";
-import {CheckableButton} from "../../components/checkable_button";
+import {CheckableButton} from "../../../components/checkable_button";
 import classNames from "classnames";
 
 interface IProps {

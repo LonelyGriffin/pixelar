@@ -7,8 +7,8 @@ import {DraggableType} from "./draggable_type";
 import styles from "./draggable.module.css";
 import {DroppableType} from "./droppable_type";
 import {DragAndDropConsumer, IDragAndDropContextValue, IDraggableEntity} from "./drag_and_drop_context";
-import {IVector, Vector, vectorSub, vectorSum, vectorX, vectorY} from "../../core/vector";
-import {RectangleByBoundary, rectangleTL} from "../../core/rectangle";
+import {IVector, makeVector, vectorSub, vectorSum, vectorX, vectorY} from "../../core/vector";
+import {makeRectByBoundary, rectangleTL} from "../../core/rectangle";
 
 export interface IDraggingState {
     hasDragging: boolean;
@@ -37,7 +37,7 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
 
         this.state = {
             hasDragging: false,
-            position: Vector(0, 0),
+            position: makeVector(0, 0),
         }
     }
 
@@ -58,13 +58,13 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
 
         mouseEvent.preventDefault();
 
-        const startRectangle = RectangleByBoundary(mouseEvent.currentTarget.getBoundingClientRect());
-        const startMousePosition = Vector(mouseEvent.pageX, mouseEvent.pageY);
+        const startRectangle = makeRectByBoundary(mouseEvent.currentTarget.getBoundingClientRect());
+        const startMousePosition = makeVector(mouseEvent.pageX, mouseEvent.pageY);
         const startRectangleTL = rectangleTL(startRectangle);
         const rectangleFromMousePositionOffset = vectorSub(startMousePosition, startRectangleTL);
 
         const handleDrag: EventListener = (e: any) => {
-            const newMousePosition = Vector(e.pageX, e.pageY);
+            const newMousePosition = makeVector(e.pageX, e.pageY);
             const newRectangleTL = vectorSum(newMousePosition, rectangleFromMousePositionOffset);
             this.setState({
                 position: newRectangleTL,
@@ -77,7 +77,7 @@ export class DraggableComponent extends Component<IDraggableComponentProps, ISta
 
             this.setState({
                 hasDragging: false,
-                position: Vector(0, 0),
+                position: makeVector(0, 0),
             });
         };
 

@@ -38,4 +38,10 @@
 .Layout_Content_Center {
     flex: auto 1;
     box-shadow: inset 0 0 20px 2px #e4e4e4;
+    overflow: hidden;
+}
+
+.Layout_Viewport {
+    width: 100%;
+    height: 100%;
 }

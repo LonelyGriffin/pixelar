@@ -3,6 +3,7 @@ import style from "./index.module.css";
 import {ToolList} from "../tool_list";
 import {LayerList} from "../layer_list";
 import {Palet} from "../palet";
+import { Viewport } from "../viewport";
 
 
 
@@ -18,7 +19,7 @@ export class Layout extends Component {
                         <ToolList/>
                     </div>
                     <div className={style.Layout_Content_Center}>
-
+                        <Viewport className={style.Layout_Viewport}/>
                     </div>
                     <div className={style.Layout_Content_Right}>
                         <LayerList/>
