@@ -45,7 +45,5 @@ export class ViewportGridContainer extends React.Component<ViewportGridContainer
             10,
             props.viewportOffset,
         );
-
-        // this.cachedImage = {...this.cachedImage};
     }
 };

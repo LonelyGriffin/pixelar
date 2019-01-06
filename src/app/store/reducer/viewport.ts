@@ -17,6 +17,9 @@ const initialState: IViewportState = {
 
 export const viewportReducer = handleActions(initialState, {
     [ActionTypes.Viewport.CHANGE_SIZE]: (state: IViewportState, action: ReturnType<typeof changeViewportSize>): IViewportState => {
-        return {...state, size: action.payload };
-    }
+        return {...state, size: action.payload};
+    },
+    [ActionTypes.Viewport.CHANGE_MOUSE_POSITION]: (state: IViewportState, action: ReturnType<typeof changeViewportMousePosition>): IViewportState => {
+        return {...state, mousePosition: action.payload};
+    },
 });

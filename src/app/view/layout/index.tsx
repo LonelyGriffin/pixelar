@@ -4,6 +4,7 @@ import {ToolList} from "../tool_list";
 import {LayerList} from "../layer_list";
 import {Palet} from "../palet";
 import { Viewport } from "../viewport";
+import { StatusBar } from "../status_bar";
 
 
 
@@ -27,7 +28,7 @@ export class Layout extends Component {
                     </div>
                 </div>
                 <div className={style.Layout_StatusBar}>
-
+                    <StatusBar />
                 </div>
             </div>
         );

@@ -17,7 +17,8 @@ export class ViewportComponent extends React.PureComponent<ViewportComponentProp
             <Resizeable
                 className={this.props.className}
                 onResize={this.props.onResize}
-                handleInitResizeEvent={true}
+				handleInitResizeEvent={true}
+				onMouseMove={this.handleOnMouseMove}
             >
                 <ViewportGrid className={styles.Grid}/>
             </Resizeable>
