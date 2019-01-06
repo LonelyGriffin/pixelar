@@ -8,7 +8,7 @@ interface ViewportGridContainerProps {
     className?:string;
     viewportSize: IVector;
     viewportOffset: IVector;
-    imageSize: IVector;
+    scale: number;
 }
 
 export class ViewportGridContainer extends React.Component<ViewportGridContainerProps> {
@@ -42,7 +42,7 @@ export class ViewportGridContainer extends React.Component<ViewportGridContainer
 
         renderGrid(
             this.cachedImage,
-            10,
+            props.scale,
             props.viewportOffset,
         );
     }

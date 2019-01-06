@@ -6,13 +6,15 @@ import { changeViewportMousePosition, changeViewportSize } from "../../actions/v
 export type IViewportState = Readonly<{
     mousePosition?: IVector; // позиция курсора относительно пикселей вьюпорта
     offset: IVector;
-    size: IVector; // размер viewport в пикселях
+    size: IVector; // размер viewport в пикселях    
+    scale: number; // размер отображаемого пикселя
 }>;
 
 const initialState: IViewportState = {
     mousePosition: undefined,
     offset: makeVector(0, 0),
     size: makeVector(0, 0),
+    scale: 20
 }
 
 export const viewportReducer = handleActions(initialState, {

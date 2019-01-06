@@ -6,6 +6,6 @@ export const ViewportGrid = connect(
     (state: IRootState) => ({
         viewportSize: state.viewport.size,
         viewportOffset: state.viewport.offset,
-        imageSize: state.imageSetup.size,
+        scale: state.viewport.scale,
     })
 )(ViewportGridContainer);
