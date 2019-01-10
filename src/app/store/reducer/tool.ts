@@ -30,6 +30,6 @@ export const toolReducer = handleActions(initialState, {
         };
     },
     [ActionTypes.TOOL.CHANGE_TYPE]: (state: IToolState, action: IChangeToolTypeAction): IToolState => {
-        return state;
+        return {...state, type: action.payload};
     },
 });
