@@ -21,3 +21,17 @@ export const changeViewportOffset = (offset: IVector) => ({
 });
 
 export type IChangeViewportOffsetAction = ReturnType<typeof changeViewportOffset>; 
+
+export const changeViewportScale = (scale: number) => ({
+    type: ActionTypes.VIEWPORT.CHANGE_SCALE,
+    payload: scale,
+});
+
+export type IChangeViewportScale = ReturnType<typeof changeViewportScale>; 
+
+export const changeViewportScaleBy = (scaleOffset: number) => ({
+    type: ActionTypes.VIEWPORT.CHANGE_SCALE_BY,
+    payload: scaleOffset,
+});
+
+export type IChangeViewportScaleBy = ReturnType<typeof changeViewportScaleBy>; 

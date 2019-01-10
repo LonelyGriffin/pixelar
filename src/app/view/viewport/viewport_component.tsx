@@ -11,6 +11,7 @@ export interface ViewportComponentProps {
     onResize: (size: IVector) => void;
 	onMousePositionChange: (position?: IVector) => void;
 	onChangeKey: (keyType: KeyTypes, value: boolean) => void;
+	onChangeScaleBy: (scaleOffset: number) => void;
 }
 
 export class ViewportComponent extends React.PureComponent<ViewportComponentProps> {
@@ -24,6 +25,7 @@ export class ViewportComponent extends React.PureComponent<ViewportComponentProp
 				onMouseLeave={this.handleMouseLeave}
 				onMouseDown={this.handleMouseDown}
 				onMouseUp={this.handleMouseUp}
+				onWheel={this.handleMouseWheel}
             >
                 <ViewportGrid className={styles.Grid}/>
             </Resizeable>
@@ -44,5 +46,11 @@ export class ViewportComponent extends React.PureComponent<ViewportComponentProp
 
 	private handleMouseUp = () => {
 		this.props.onChangeKey(KeyTypes.MOUSE_LEFT, false);
+	}
+
+	private handleMouseWheel = (e: MouseWheelEvent) => {
+		const delta = e.deltaY || e.detail;
+
+		this.props.onChangeScaleBy(Math.sign(delta));
 	}
 }
