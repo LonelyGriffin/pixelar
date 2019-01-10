@@ -4,6 +4,8 @@ import { ViewportComponent } from "./viewport_component";
 import { changeViewportSize, changeViewportMousePosition } from "../../actions/viewport";
 import { IRootState } from "../../store/reducer";
 import { IVector } from "../../../core/vector";
+import { KeyTypes } from "../../../core/keys";
+import { changeKey } from "../../actions/keys";
 
 export const Viewport = connect(
     (state: IRootState) => ({}),
@@ -13,6 +15,9 @@ export const Viewport = connect(
         },
         onMousePositionChange: (position?: IVector) => {
             dispatch(changeViewportMousePosition(position));
+        },
+        onChangeKey: (keyType: KeyTypes, value: boolean) => {
+            dispatch(changeKey(keyType, value));
         },
     }),
 )(ViewportComponent);

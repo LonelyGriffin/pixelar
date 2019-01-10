@@ -40,6 +40,7 @@ export class ImageRenderer extends React.Component<ImageRendererProps> {
     private renderImage(ctx: CanvasRenderingContext2D, img: IImage) {
         
         if (img.canvas.width && img.canvas.height) {
+            ctx.clearRect(0, 0, img.canvas.width, img.canvas.height);
             ctx.drawImage(img.canvas, 0, 0, img.canvas.width, img.canvas.height);
         }
     }

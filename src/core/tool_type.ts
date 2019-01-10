@@ -1,5 +1,5 @@
 export enum ToolType {
-    Pen,
-    Eraser,
-    Hand,
+    PEN = "PEN",
+    ERASER = "ERASER",
+    HAND = "HAND",
 }

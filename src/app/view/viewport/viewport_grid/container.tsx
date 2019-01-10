@@ -2,7 +2,7 @@ import * as React from "react";
 import { renderGrid } from "./render_grid";
 import { ImageRenderer } from "../../../../components/image_renderer";
 import { IVector } from "../../../../core/vector";
-import { IImage, makeEmptyImage, setSizeToImage } from "../../../../core/image";
+import { IImage, makeEmptyImage, setSizeToImage, clearImage } from "../../../../core/image";
 
 interface ViewportGridContainerProps {
     className?:string;
@@ -38,8 +38,8 @@ export class ViewportGridContainer extends React.Component<ViewportGridContainer
     }
 
     private updateImage(props: ViewportGridContainerProps) {
+        clearImage(this.cachedImage);
         setSizeToImage(this.cachedImage, props.viewportSize);
-
         renderGrid(
             this.cachedImage,
             props.scale,

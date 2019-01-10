@@ -12,6 +12,10 @@ export const setSizeToImage = (img: IImage, size: IVector) => {
     img.canvas.height = vectorY(size);
 };
 
+export const clearImage = (img: IImage) => {
+    img.ctx.clearRect(0, 0, img.canvas.width, img.canvas.height);  
+};
+
 export const makeEmptyImage = (size: IVector): IImage => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
