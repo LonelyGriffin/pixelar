@@ -2,7 +2,7 @@ import { IVector, makeVector } from "../../../core/vector";
 import { handleActions } from "../../../core/reducer";
 
 export type ImageSetupState = Readonly<{
-    size: Readonly<IVector>;
+    size: IVector;
 }>;
 
 const initialState: ImageSetupState = {

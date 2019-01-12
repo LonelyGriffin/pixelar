@@ -5,6 +5,7 @@ import { Resizeable } from "../../../components/resizeable";
 import { mousePositionOnElement } from "../../../core/mouse_position_on_element";
 import styles from "./viewport_component.module.css";
 import { KeyTypes } from "../../../core/keys";
+import { ViewportImage } from "./viewport_image";
 
 export interface ViewportComponentProps {
 	className?: string;
@@ -19,15 +20,16 @@ export class ViewportComponent extends React.PureComponent<ViewportComponentProp
         return (
             <Resizeable
                 className={this.props.className}
-                onResize={this.props.onResize}
 				handleInitResizeEvent={true}
+                onResize={this.props.onResize}
 				onMouseMove={this.handleMouseMove}
 				onMouseLeave={this.handleMouseLeave}
 				onMouseDown={this.handleMouseDown}
 				onMouseUp={this.handleMouseUp}
 				onWheel={this.handleMouseWheel}
             >
-                <ViewportGrid className={styles.Grid}/>
+                <ViewportImage className={styles.Layer}/>
+                <ViewportGrid className={styles.Layer}/>
             </Resizeable>
         );
     }

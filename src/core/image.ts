@@ -12,6 +12,8 @@ export const setSizeToImage = (img: IImage, size: IVector) => {
     img.canvas.height = vectorY(size);
 };
 
+export const getImageSize = (img: IImage): IVector => makeVector(img.canvas.width, img.canvas.height);
+
 export const clearImage = (img: IImage) => {
     img.ctx.clearRect(0, 0, img.canvas.width, img.canvas.height);  
 };
