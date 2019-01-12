@@ -12,7 +12,7 @@ export type IViewportState = Readonly<{
 
 const initialState: IViewportState = {
     mousePosition: undefined,
-    offset: makeVector(10, 10),
+    offset: makeVector(0, 0),
     size: makeVector(0, 0),
     scale: 20
 }
@@ -32,6 +32,11 @@ export const viewportReducer = handleActions(initialState, {
     },
     [ActionTypes.VIEWPORT.CHANGE_SCALE_BY]: (state: IViewportState, action: IChangeViewportScaleBy): IViewportState => {
         // TODO: add restrictions and viewport centering by mouse position
-        return {...state, scale: state.scale + action.payload};
+        const newScale = state.scale + action.payload;
+        if (newScale > 0) {
+            return {...state, scale: newScale};
+        } else {
+            return state;
+        }
     },
 });
