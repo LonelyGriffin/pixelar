@@ -3,6 +3,8 @@ import { ILayer, makeEmptyLayer } from "../../../core/layer";
 import { handleActions } from "../../../core/reducer";
 import { makeVector } from "../../../core/vector";
 import { makeEmptyImage } from "../../../core/image";
+import { ActionTypes } from "../../actions/action_types";
+import { IMergeImageToCurrentLayerAction } from "../../actions/layers";
 
 export type ILayersState = {
     current: number;
@@ -18,15 +20,9 @@ const initialState: ILayersState = {
     ],
 };
 
-const pixelImg = makeEmptyImage(makeVector(1, 1));
-pixelImg.ctx.beginPath();
-pixelImg.ctx.fillStyle = "000000";
-pixelImg.ctx.fillRect(0, 0, 1, 1);
-pixelImg.ctx.closePath();
-pixelImg.ctx.stroke();
-
-initialState.list[0].img.ctx.drawImage(pixelImg.canvas, 1, 1);
-initialState.list[1].img.ctx.drawImage(pixelImg.canvas, 2, 2);
-initialState.list[2].img.ctx.drawImage(pixelImg.canvas, 3, 3);
-
-export const layersReducer = handleActions(initialState, {});
+export const layersReducer = handleActions(initialState, {
+    [ActionTypes.LAYERS.MERGE_IMAGE_TO_CURRENT_LAYER]: (state: ILayersState, action: IMergeImageToCurrentLayerAction): ILayersState => {
+        state.list[state.current].img.ctx.drawImage(action.payload.canvas, 0, 0);
+        return {...state, list: [...state.list]};
+    },
+});

@@ -17,4 +17,7 @@ export const ActionTypes = {
             CHANGE_MOUSE_OFFSET: "TOOL/HAND/CHANGE_MOUSE_OFFSET",
         },
     },
+    LAYERS: {
+        MERGE_IMAGE_TO_CURRENT_LAYER: "LAYERS/MERGE_IMAGE_TO_CURRENT_LAYER",
+    }
 };

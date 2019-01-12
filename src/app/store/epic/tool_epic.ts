@@ -1,4 +1,4 @@
-import {ActionsObservable, StateObservable, Epic} from "redux-observable";
+import { ActionsObservable, StateObservable, Epic } from "redux-observable";
 import { changeViewportMousePosition, IChangeViewportMousePositionAction, changeViewportOffset } from "../../actions/viewport";
 import { changeKey, IChangeKeyAction } from "../../actions/keys";
 import { ActionTypes } from "../../actions/action_types";
@@ -9,9 +9,20 @@ import { Action } from "redux";
 import { empty, Observable, merge, of, combineLatest } from "rxjs";
 import { KeyTypes } from "../../../core/keys";
 import { startHandDragging, changeToolType } from "../../actions/tool";
-import { vectorSum, vectorSub, makeVector } from "../../../core/vector";
+import { vectorSum, vectorSub, makeVector, IVector, vectorScalarDiv, vectorFloor, vectorX, vectorY } from "../../../core/vector";
+import { mergeImageToCurrentLayer } from "../../actions/layers";
+import { makeEmptyImage } from "../../../core/image";
 
 const INITIAL_TOOL_TYPE = ToolType.HAND;
+
+const viewportToImagePosition = (viewportPos: IVector, viewportOffset: IVector, scale: number) => {
+    return vectorFloor(
+        vectorScalarDiv(
+            vectorSub(viewportOffset, viewportPos),
+            scale
+        ),
+    )
+}
 
 export const toolEpic = (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => {
     return action$.ofType<Action<any>>(
@@ -28,8 +39,7 @@ type IToolEpicActionMap = {
 }
 
 const toolEpicActionMap: IToolEpicActionMap = {
-    [ToolType.HAND]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => 
-        merge(
+    [ToolType.HAND]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => merge(
         action$.ofType<IChangeKeyAction>(ActionTypes.KEYS.CHANGE_KEY).pipe(
             filter(action => action.payload.keyType === KeyTypes.MOUSE_LEFT && action.payload.value),
             map(() => startHandDragging(
@@ -55,6 +65,34 @@ const toolEpicActionMap: IToolEpicActionMap = {
             }),
         ),
     ),
+    [ToolType.PEN]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => merge(
+            action$.ofType<IChangeKeyAction>(ActionTypes.KEYS.CHANGE_KEY).pipe(
+                filter(action => action.payload.keyType === KeyTypes.MOUSE_LEFT)
+            ),
+            action$.ofType<IChangeViewportMousePositionAction>(ActionTypes.VIEWPORT.CHANGE_MOUSE_POSITION)
+        ).pipe(
+            filter(() => state$.value.keys[KeyTypes.MOUSE_LEFT]),
+            map(() => {
+                const mousePosition = state$.value.viewport.mousePosition; 
+                if (mousePosition) {
+                    const imagePos = viewportToImagePosition(
+                        mousePosition,
+                        state$.value.viewport.offset,
+                        state$.value.viewport.scale,
+                    );
+                    const pixelImg = makeEmptyImage(makeVector(32, 32));
+                    pixelImg.ctx.beginPath();
+                    pixelImg.ctx.fillStyle = "000000";
+                    pixelImg.ctx.fillRect(vectorX(imagePos), vectorY(imagePos), 1, 1);
+                    pixelImg.ctx.closePath();
+                    pixelImg.ctx.stroke();
+                    return mergeImageToCurrentLayer(pixelImg)
+                }
+
+                return {
+                    type: ""
+                }
+            }),
+        ),
     [ToolType.ERASER]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => empty(),
-    [ToolType.PEN]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => empty(),
 };

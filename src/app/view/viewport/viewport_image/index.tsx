@@ -24,23 +24,19 @@ export class ViewportImageContainer extends Component<IProps> {
     constructor(props:IProps) {
         super(props);
 
-        // this.resultImage.ctx.mozImageSmoothingEnabled = false;
-        // this.resultImage.ctx.oImageSmoothingEnabled = false;
-        // this.resultImage.ctx.webkitImageSmoothingEnabled = false;
-
         this.updateCaches(props);
         this.renderResultImage(props);
     }
 
     public componentWillUpdate(nextProps: IProps) {
         const props = this.props;
-        const needUpdateCache = props.currentLayerNumber !== nextProps.currentLayerNumber
+        const needUpdateCaches = props.currentLayerNumber !== nextProps.currentLayerNumber
             || props.layers.length !== nextProps.layers.length
             || props.viewportSize !== nextProps.viewportSize
             || props.offset !== nextProps.offset
             || props.imageSize !== nextProps.imageSize;
             
-        if(needUpdateCache) {
+        if(needUpdateCaches) {
             this.updateCaches(nextProps);
         }
         this.renderResultImage(nextProps);
