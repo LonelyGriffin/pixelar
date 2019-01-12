@@ -13,7 +13,7 @@ export class Layout extends Component {
         return (
             <div className={style.Layout}>
                 <div className={style.Layout_Menu}>
-
+                    {`PIXELAR - Beautiful editor for tiles and pixel art`}
                 </div>
                 <div className={style.Layout_Content}>
                     <div className={style.Layout_Content_Left}>
