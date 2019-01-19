@@ -29,8 +29,8 @@ export class ViewportComponent extends React.PureComponent<ViewportComponentProp
 				onMouseUp={this.handleMouseUp}
 				onWheel={this.handleMouseWheel}
             >
-                <ViewportImage className={styles.Layer}/>
                 <ViewportGrid className={styles.Layer}/>
+                <ViewportImage className={styles.Layer}/>
 				<ViewportTool className={styles.Layer}/>
             </Resizeable>
         );

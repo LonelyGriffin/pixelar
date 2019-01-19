@@ -12,9 +12,10 @@ export const renderGrid = (
     const lineOffsetX = vectorX(offset) % ceilSize;
     const lineOffsetY = vectorY(offset) % ceilSize;
 
+    ctx.save()
     ctx.beginPath();
     ctx.lineWidth = 0.5;
-    ctx.strokeStyle = "gray";
+    ctx.strokeStyle = "rgba(100,100,100,0.5)";
 
     for(let x = lineOffsetX; x < imgWidth; x+= ceilSize) {
         ctx.moveTo(x, 0);
@@ -28,4 +29,5 @@ export const renderGrid = (
 
     ctx.stroke();
     ctx.closePath();
+    ctx.restore();
 }

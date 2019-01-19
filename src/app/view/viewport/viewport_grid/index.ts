@@ -7,5 +7,6 @@ export const ViewportGrid = connect(
         viewportSize: state.viewport.size,
         viewportOffset: state.viewport.offset,
         scale: state.viewport.scale,
+        imgSize: state.imageSetup.size,
     })
 )(ViewportGridContainer);
