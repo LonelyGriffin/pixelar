@@ -16,6 +16,9 @@ export const ActionTypes = {
         [ToolType.HAND]: {
             CHANGE_MOUSE_OFFSET: "TOOL/HAND/CHANGE_MOUSE_OFFSET",
         },
+        [ToolType.PEN]: {
+            CHANGE_SIZE: "TOOL/PEN/CHANGE_SIZE",
+        },
     },
     LAYERS: {
         MERGE_IMAGE_TO_CURRENT_LAYER: "LAYERS/MERGE_IMAGE_TO_CURRENT_LAYER",

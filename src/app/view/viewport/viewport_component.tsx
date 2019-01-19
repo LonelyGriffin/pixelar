@@ -6,6 +6,7 @@ import { mousePositionOnElement } from "../../../core/mouse_position_on_element"
 import styles from "./viewport_component.module.css";
 import { KeyTypes } from "../../../core/keys";
 import { ViewportImage } from "./viewport_image";
+import { ViewportTool } from "./viewport_tool";
 
 export interface ViewportComponentProps {
 	className?: string;
@@ -30,6 +31,7 @@ export class ViewportComponent extends React.PureComponent<ViewportComponentProp
             >
                 <ViewportImage className={styles.Layer}/>
                 <ViewportGrid className={styles.Layer}/>
+				<ViewportTool className={styles.Layer}/>
             </Resizeable>
         );
     }

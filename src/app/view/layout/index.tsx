@@ -5,8 +5,7 @@ import {LayerList} from "../layer_list";
 import {Palet} from "../palet";
 import { Viewport } from "../viewport";
 import { StatusBar } from "../status_bar";
-
-
+import { ToolSettings } from "../tool_settings";
 
 export class Layout extends Component {
     public render() {
@@ -14,6 +13,9 @@ export class Layout extends Component {
             <div className={style.Layout}>
                 <div className={style.Layout_Menu}>
                     {`PIXELAR - Beautiful editor for tiles and pixel art`}
+                </div>
+                <div className={style.Layout_ToolSettingsBar}>
+                    <ToolSettings />
                 </div>
                 <div className={style.Layout_Content}>
                     <div className={style.Layout_Content_Left}>

@@ -8,6 +8,11 @@
 .Layout_Menu {
     height: 40px;
     width: 100%;
+}
+
+.Layout_ToolSettingsBar {
+    height: 40px;
+    width: 100%;
     border-bottom: solid #e4e4e4 1px;
 }
 

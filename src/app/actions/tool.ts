@@ -18,3 +18,10 @@ export const changeToolType = (toolType: ToolType) => ({
 });
 
 export type IChangeToolTypeAction = ReturnType<typeof changeToolType>;
+
+export const changePenSize = (size: number) => ({
+    type: ActionTypes.TOOL.PEN.CHANGE_SIZE,
+    payload: size,
+});
+
+export type IChangePenSize = ReturnType<typeof changePenSize>;

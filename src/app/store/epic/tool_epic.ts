@@ -9,20 +9,14 @@ import { Action } from "redux";
 import { empty, Observable, merge, of, combineLatest } from "rxjs";
 import { KeyTypes } from "../../../core/keys";
 import { startHandDragging, changeToolType } from "../../actions/tool";
-import { vectorSum, vectorSub, makeVector, IVector, vectorScalarDiv, vectorFloor, vectorX, vectorY } from "../../../core/vector";
+import { vectorSum, vectorSub, makeVector, IVector, vectorX, vectorY } from "../../../core/vector";
 import { mergeImageToCurrentLayer } from "../../actions/layers";
 import { makeEmptyImage } from "../../../core/image";
+import { viewportToImagePosition } from "../../utils/viewport_to_image_position";
 
 const INITIAL_TOOL_TYPE = ToolType.HAND;
 
-const viewportToImagePosition = (viewportPos: IVector, viewportOffset: IVector, scale: number) => {
-    return vectorFloor(
-        vectorScalarDiv(
-            vectorSub(viewportOffset, viewportPos),
-            scale
-        ),
-    )
-}
+
 
 export const toolEpic = (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => {
     return action$.ofType<Action<any>>(
@@ -80,10 +74,16 @@ const toolEpicActionMap: IToolEpicActionMap = {
                         state$.value.viewport.offset,
                         state$.value.viewport.scale,
                     );
+                    const penSize = state$.value.tool[ToolType.PEN].size;
+                    const halfPenSize = Math.floor(penSize / 2);
+                    const penPos = vectorSub(
+                        makeVector(halfPenSize, halfPenSize),
+                        imagePos,
+                    );
                     const pixelImg = makeEmptyImage(makeVector(32, 32));
                     pixelImg.ctx.beginPath();
                     pixelImg.ctx.fillStyle = "000000";
-                    pixelImg.ctx.fillRect(vectorX(imagePos), vectorY(imagePos), 1, 1);
+                    pixelImg.ctx.fillRect(vectorX(penPos), vectorY(penPos), penSize, penSize);
                     pixelImg.ctx.closePath();
                     pixelImg.ctx.stroke();
                     return mergeImageToCurrentLayer(pixelImg)
