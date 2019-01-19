@@ -27,7 +27,6 @@ export class ViewportToolContainer extends Component<IProps> {
     public componentWillUpdate(nextProps: IProps) {
         if (nextProps.toolState.type !== this.props.toolState.type) {
             this.renderTool = createToolRenderer(nextProps.toolState.type);
-            clearImage(this.imgCache);
         }
 
         if (this.props.viewportState.size !== nextProps.viewportState.size) {
@@ -40,7 +39,10 @@ export class ViewportToolContainer extends Component<IProps> {
             || nextProps.viewportState.mousePosition !== this.props.viewportState.mousePosition
             || nextProps.viewportState.scale !== this.props.viewportState.scale
         ) {
-            this.renderTool(this.props.toolState, this.props.viewportState, this.imgCache);
+            clearImage(this.imgCache);
+            if (nextProps.viewportState.mousePosition) {
+                this.renderTool(this.props.toolState, this.props.viewportState, this.imgCache);
+            }
         }
     }
 

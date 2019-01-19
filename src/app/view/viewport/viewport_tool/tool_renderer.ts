@@ -14,8 +14,6 @@ const ToolRenderersMap = {
     [ToolType.PEN]: (toolState: IToolState, viewportState: IViewportState, dstImg: IImage) => {
         const penState = toolState[ToolType.PEN];
 
-        clearImage(dstImg);
-
         const mousePosition = viewportState.mousePosition; 
 
         if (mousePosition) {
@@ -47,8 +45,6 @@ const ToolRenderersMap = {
     },
     [ToolType.ERASER]: (toolState: IToolState, viewportState: IViewportState, dstImg: IImage) => {
         const eraserState = toolState[ToolType.ERASER];
-
-        clearImage(dstImg);
 
         const mousePosition = viewportState.mousePosition; 
 
