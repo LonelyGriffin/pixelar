@@ -11,7 +11,7 @@ export const dumpToolRenderer: IToolRenderer = () => {};
 
 const ToolRenderersMap = {
     [ToolType.HAND]: dumpToolRenderer,
-    [ToolType.PEN] : (toolState: IToolState, viewportState: IViewportState, dstImg: IImage) => {
+    [ToolType.PEN]: (toolState: IToolState, viewportState: IViewportState, dstImg: IImage) => {
         const penState = toolState[ToolType.PEN];
 
         clearImage(dstImg);
@@ -39,13 +39,46 @@ const ToolRenderersMap = {
             );
 
             dstImg.ctx.beginPath();
-            dstImg.ctx.fillStyle = "000000";
+            dstImg.ctx.fillStyle = "#000000";
             dstImg.ctx.fillRect(vectorX(toolPos), vectorY(toolPos), penState.size * viewportState.scale, penState.size * viewportState.scale);
             dstImg.ctx.closePath();
             dstImg.ctx.stroke();
         }     
     },
-    [ToolType.ERASER] : dumpToolRenderer,
+    [ToolType.ERASER]: (toolState: IToolState, viewportState: IViewportState, dstImg: IImage) => {
+        const eraserState = toolState[ToolType.ERASER];
+
+        clearImage(dstImg);
+
+        const mousePosition = viewportState.mousePosition; 
+
+        if (mousePosition) {
+            const imagePos = viewportToImagePosition(
+                mousePosition,
+                viewportState.offset,
+                viewportState.scale,
+            );
+
+            const offsetToCenter = Math.floor(eraserState.size / 2);
+
+            const toolPos = vectorSum(
+                viewportState.offset,
+                vectorScalarMul(
+                    vectorSub(
+                        makeVector(offsetToCenter, offsetToCenter),
+                        imagePos,
+                    ),
+                    viewportState.scale
+                ),
+            );
+
+            dstImg.ctx.beginPath();
+            dstImg.ctx.fillStyle = "#ffffff";
+            dstImg.ctx.fillRect(vectorX(toolPos), vectorY(toolPos), eraserState.size * viewportState.scale, eraserState.size * viewportState.scale);
+            dstImg.ctx.closePath();
+            dstImg.ctx.stroke();
+        }     
+    },
 }
 
 export const createToolRenderer = (type: ToolType): IToolRenderer => ToolRenderersMap[type];

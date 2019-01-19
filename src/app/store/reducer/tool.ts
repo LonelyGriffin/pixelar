@@ -2,7 +2,7 @@ import { ToolType } from "../../../core/tool_type";
 import { handleActions } from "../../../core/reducer";
 import { IVector, makeVector } from "../../../core/vector";
 import { ActionTypes } from "../../actions/action_types";
-import { IChangeHandStartMousePositionAction, IChangeToolTypeAction, IChangePenSize } from "../../actions/tool";
+import { IChangeHandStartMousePositionAction, IChangeToolTypeAction, IChangePenSize, IChangeEraserSize } from "../../actions/tool";
 import { makeEmptyImage, IImage } from "../../../core/image";
 
 export type IToolState = Readonly<{
@@ -14,12 +14,18 @@ export type IToolState = Readonly<{
     [ToolType.PEN]: Readonly<{
         size: number;
     }>;
+    [ToolType.ERASER]: Readonly<{
+        size: number;
+    }>;
 }>
 
 const initialState: IToolState = {
     type: ToolType.HAND,
     [ToolType.HAND]: {},
     [ToolType.PEN]: {
+        size: 1,
+    },
+    [ToolType.ERASER]: {
         size: 1,
     },
 }
@@ -43,6 +49,15 @@ export const toolReducer = handleActions(initialState, {
             ...state,
             [ToolType.PEN]: {
                 ...state.PEN,
+                size: action.payload,
+            },
+        };
+    },
+    [ActionTypes.TOOL.ERASER.CHANGE_SIZE]: (state: IToolState, action: IChangeEraserSize): IToolState => {
+        return {
+            ...state,
+            [ToolType.ERASER]: {
+                ...state.ERASER,
                 size: action.payload,
             },
         };

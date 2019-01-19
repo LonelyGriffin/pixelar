@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { changePenSize } from "../../actions/tool";
 import { ToolType } from "../../../core/tool_type";
 import { PenSettings } from "./pen_settings";
+import { EraserSettings } from "./eraser_settings";
 
 interface IProps {
     toolType: ToolType;
@@ -20,7 +21,8 @@ export class ToolSettingsComponent extends Component<IProps> {
 
     renderCurrentToolSettings() {
         switch(this.props.toolType) {
-            case ToolType.PEN: return <PenSettings />
+            case ToolType.PEN: return <PenSettings />;
+            case ToolType.ERASER: return <EraserSettings />;
             default: return false;
         }
     }

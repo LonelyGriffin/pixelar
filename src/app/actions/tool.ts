@@ -25,3 +25,10 @@ export const changePenSize = (size: number) => ({
 });
 
 export type IChangePenSize = ReturnType<typeof changePenSize>;
+
+export const changeEraserSize = (size: number) => ({
+    type: ActionTypes.TOOL.ERASER.CHANGE_SIZE,
+    payload: size,
+});
+
+export type IChangeEraserSize = ReturnType<typeof changeEraserSize>;

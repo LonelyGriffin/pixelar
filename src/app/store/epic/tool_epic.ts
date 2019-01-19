@@ -80,19 +80,57 @@ const toolEpicActionMap: IToolEpicActionMap = {
                         makeVector(halfPenSize, halfPenSize),
                         imagePos,
                     );
-                    const pixelImg = makeEmptyImage(makeVector(32, 32));
-                    pixelImg.ctx.beginPath();
-                    pixelImg.ctx.fillStyle = "000000";
-                    pixelImg.ctx.fillRect(vectorX(penPos), vectorY(penPos), penSize, penSize);
-                    pixelImg.ctx.closePath();
-                    pixelImg.ctx.stroke();
-                    return mergeImageToCurrentLayer(pixelImg)
+                    const curImg = state$.value.layers.list[state$.value.layers.current].img;
+                    curImg.ctx.save();
+                    curImg.ctx.beginPath();
+                    curImg.ctx.fillStyle = "#000000";
+                    curImg.ctx.fillRect(vectorX(penPos), vectorY(penPos), penSize, penSize);
+                    curImg.ctx.closePath();
+                    curImg.ctx.stroke();
+                    curImg.ctx.restore();
+                    return mergeImageToCurrentLayer(curImg)
                 }
-
+                // TODO To get rid of this hack
                 return {
                     type: ""
                 }
             }),
         ),
-    [ToolType.ERASER]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => empty(),
+    [ToolType.ERASER]: (action$: ActionsObservable<Action<any>>, state$: StateObservable<IRootState>) => merge(
+        action$.ofType<IChangeKeyAction>(ActionTypes.KEYS.CHANGE_KEY).pipe(
+            filter(action => action.payload.keyType === KeyTypes.MOUSE_LEFT)
+        ),
+        action$.ofType<IChangeViewportMousePositionAction>(ActionTypes.VIEWPORT.CHANGE_MOUSE_POSITION)
+    ).pipe(
+        filter(() => state$.value.keys[KeyTypes.MOUSE_LEFT]),
+        map(() => {
+            const mousePosition = state$.value.viewport.mousePosition; 
+            if (mousePosition) {
+                const imagePos = viewportToImagePosition(
+                    mousePosition,
+                    state$.value.viewport.offset,
+                    state$.value.viewport.scale,
+                );
+                const eraserSize = state$.value.tool[ToolType.ERASER].size;
+                const halfEraserSize = Math.floor(eraserSize / 2);
+                const penPos = vectorSub(
+                    makeVector(halfEraserSize, halfEraserSize),
+                    imagePos,
+                );
+                const curImg = state$.value.layers.list[state$.value.layers.current].img
+                curImg.ctx.imageSmoothingEnabled = false;
+                curImg.ctx.save();
+                curImg.ctx.beginPath();
+                curImg.ctx.clearRect(vectorX(penPos), vectorY(penPos), eraserSize, eraserSize);
+                curImg.ctx.closePath();
+                curImg.ctx.stroke();
+                curImg.ctx.restore();
+                return mergeImageToCurrentLayer(curImg)
+            }
+            // TODO To get rid of this hack
+            return {
+                type: ""
+            }
+        }),
+    ),
 };

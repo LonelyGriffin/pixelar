@@ -19,6 +19,9 @@ export const ActionTypes = {
         [ToolType.PEN]: {
             CHANGE_SIZE: "TOOL/PEN/CHANGE_SIZE",
         },
+        [ToolType.ERASER]: {
+            CHANGE_SIZE: "TOOL/ERASER/CHANGE_SIZE",
+        },
     },
     LAYERS: {
         MERGE_IMAGE_TO_CURRENT_LAYER: "LAYERS/MERGE_IMAGE_TO_CURRENT_LAYER",
